@@ -38,6 +38,7 @@ file(MAKE_DIRECTORY ${IPREPO_DIR})
 ##            USER CONFIGURATION          ##
 ############################################
 # Target FPGA device; supported Alveo U55C, Alveo U280, Alveo U250
+# and i want Enzian
 set(FDEV_NAME "0" CACHE STRING "Target FPGA device")
 
 ##
@@ -49,11 +50,11 @@ set(N_REGIONS 1 CACHE STRING "Number of vFPGAs")
 
 # Re-builds the static layer of Coyote, alongside the standard shell and app build
 # Not recommended for most users, as the static layer is not configurable and will very rarey require code changes
-set(BUILD_STATIC 0 CACHE STRING "Static build flow: static + shell")
+set(BUILD_STATIC 1 CACHE STRING "Static build flow: static + shell")
 
 # Builds the Coyote shell (dynamic + app layer) and links against an existing static layer checkpoint
 # Recommended for most users, since it's much faster than BUILD_STATIC and the shell is the configurable part of Coyote
-set(BUILD_SHELL 1 CACHE STRING "Build shell, linking against existing design check-point")
+set(BUILD_SHELL 0 CACHE STRING "Build shell, linking against existing design check-point")
 
 # Build the user logic (vFPGA) and link it against an existing shell 
 set(BUILD_APP 0 CACHE STRING "Build app portion of the design (on top of existing shell config)")
@@ -338,6 +339,8 @@ macro(validation_checks_hw)
             set(DDR_SIZE 34)
             set(HBM_SIZE 33)
             set(N_DDR_CHAN 1)
+        elseif(FDEV_NAME STREQUAL "enzian")
+            set(FPGA_PART enzian-placeholder CACHE STRING "FPGA device.")
         else()
             message(FATAL_ERROR "Target device not supported.")
         endif()
