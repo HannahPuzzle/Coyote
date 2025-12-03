@@ -12,7 +12,10 @@ find_package(CoyoteHW REQUIRED)
 
 # Shell configuration
 set(FDEV_NAME "enzian")
+set(N_REGIONS 1)
 set(EN_PR 0)            
+set(EN_STRM 0)
+set(EN_MEM 0)
 
 # Validate the configuration
 validation_checks_hw()
