@@ -16,3 +16,6 @@ set(EN_PR 0)
 
 # Validate the configuration
 validation_checks_hw()
+
+# Generate all targets
+create_hw()
