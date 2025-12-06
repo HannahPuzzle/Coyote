@@ -89,8 +89,8 @@ add_files "$proj_dir/hdl/static"
 # DEPRECATED --- ENZIAN
 if {$cfg(fdev) eq "enzian"} {
     add_files "$hw_dir/hdl/eci"
-    add_files "$hw_dir/enzian_eci_transport/hdl"
-    add_files "$hw_dir/enzian_eci_toolkit/hdl"
+    #add_files "$hw_dir/enzian_eci_transport/hdl"
+    #add_files "$hw_dir/enzian_eci_toolkit/hdl"
 }
 
 # Top level
