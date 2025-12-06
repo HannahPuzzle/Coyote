@@ -122,11 +122,11 @@ if {$cfg(fdev) eq "enzian"} {
 ########################################################################################################
 # DEPRECATED --- ENZIAN
 if {$cfg(fdev) eq "enzian"} {
-    source "$scripts_dir/bd/cr_eci.tcl" -notrace
+    source "$hw_dir/bd/cr_eci.tcl" -notrace
     cr_bd_design_static ""
     set_property SYNTH_CHECKPOINT_MODE "Hierarchical" [get_files design_static.bd ]
 } else {
-    source "$scripts_dir/bd/cr_pci.tcl" -notrace
+    source "$hw_dir/bd/cr_pci.tcl" -notrace
     cr_bd_design_static ""
     set_property SYNTH_CHECKPOINT_MODE "Hierarchical" [get_files design_static.bd ]
 }
