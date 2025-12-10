@@ -20,7 +20,7 @@ set script_folder [_tcl::get_script_folder]
 ################################################################
 # Check if script is running in correct Vivado version.
 ################################################################
-set scripts_vivado_version 2025.1
+set scripts_vivado_version 2023.2
 set current_vivado_version [version -short]
 
 if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
@@ -218,6 +218,7 @@ proc create_root_design { parentCell } {
    CONFIG.HAS_RRESP {1} \
    CONFIG.HAS_WSTRB {1} \
    CONFIG.ID_WIDTH {0} \
+   CONFIG.MAX_BURST_LENGTH {1} \
    CONFIG.NUM_READ_OUTSTANDING {4} \
    CONFIG.NUM_READ_THREADS {1} \
    CONFIG.NUM_WRITE_OUTSTANDING {4} \
@@ -226,6 +227,7 @@ proc create_root_design { parentCell } {
    CONFIG.READ_WRITE_MODE {READ_WRITE} \
    CONFIG.RUSER_BITS_PER_BYTE {0} \
    CONFIG.RUSER_WIDTH {0} \
+   CONFIG.SUPPORTS_NARROW_BURST {0} \
    CONFIG.WUSER_BITS_PER_BYTE {0} \
    CONFIG.WUSER_WIDTH {0} \
    ] $axi_main
@@ -306,40 +308,19 @@ proc create_root_design { parentCell } {
   connect_bd_intf_net -intf_net axi_interconnect_0_M01_AXI [get_bd_intf_ports axi_ctrl_0] [get_bd_intf_pins axi_interconnect_0/M01_AXI]
 
   # Create port connections
-  connect_bd_net -net a_aresetn_1  [get_bd_pins proc_sys_reset_a/peripheral_aresetn] \
-  [get_bd_ports aresetn]
-  connect_bd_net -net clk_wiz_0_clk_out1  [get_bd_ports pclk] \
-  [get_bd_pins proc_sys_reset_p/slowest_sync_clk]
-  connect_bd_net -net clk_wiz_0_clk_out2  [get_bd_ports aclk] \
-  [get_bd_pins proc_sys_reset_a/slowest_sync_clk] \
-  [get_bd_pins axi_interconnect_0/ACLK] \
-  [get_bd_pins axi_interconnect_0/M00_ACLK] \
-  [get_bd_pins axi_interconnect_0/M01_ACLK]
-  connect_bd_net -net clk_wiz_0_clk_out3  [get_bd_ports nclk] \
-  [get_bd_pins proc_sys_reset_n/slowest_sync_clk]
-  connect_bd_net -net clk_wiz_0_clk_out4  [get_bd_ports uclk] \
-  [get_bd_pins proc_sys_reset_u/slowest_sync_clk]
-  connect_bd_net -net n_aresetn_1  [get_bd_pins proc_sys_reset_n/peripheral_aresetn] \
-  [get_bd_ports nresetn]
-  connect_bd_net -net p_aresetn_1  [get_bd_pins proc_sys_reset_p/peripheral_aresetn] \
-  [get_bd_ports presetn]
-  connect_bd_net -net proc_sys_reset_a_interconnect_aresetn  [get_bd_pins proc_sys_reset_a/interconnect_aresetn] \
-  [get_bd_pins axi_interconnect_0/ARESETN] \
-  [get_bd_pins axi_interconnect_0/M00_ARESETN] \
-  [get_bd_pins axi_interconnect_0/M01_ARESETN]
-  connect_bd_net -net u_aresetn_1  [get_bd_pins proc_sys_reset_u/peripheral_aresetn] \
-  [get_bd_ports uresetn]
-  connect_bd_net -net xclk_1  [get_bd_ports xclk] \
-  [get_bd_pins axi_interconnect_0/S00_ACLK]
-  connect_bd_net -net xlconstant_0_dout  [get_bd_pins xlconstant_0/dout] \
-  [get_bd_pins proc_sys_reset_a/ext_reset_in] \
-  [get_bd_pins proc_sys_reset_n/ext_reset_in] \
-  [get_bd_pins proc_sys_reset_u/ext_reset_in] \
-  [get_bd_pins proc_sys_reset_p/ext_reset_in]
-  connect_bd_net -net xlconstant_1_dout  [get_bd_pins xlconstant_1/dout] \
-  [get_bd_ports sys_reset]
-  connect_bd_net -net xresetn_1  [get_bd_ports xresetn] \
-  [get_bd_pins axi_interconnect_0/S00_ARESETN]
+  connect_bd_net -net a_aresetn_1 [get_bd_pins proc_sys_reset_a/peripheral_aresetn] [get_bd_ports aresetn]
+  connect_bd_net -net clk_wiz_0_clk_out1 [get_bd_ports pclk] [get_bd_pins proc_sys_reset_p/slowest_sync_clk]
+  connect_bd_net -net clk_wiz_0_clk_out2 [get_bd_ports aclk] [get_bd_pins proc_sys_reset_a/slowest_sync_clk] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/M01_ACLK]
+  connect_bd_net -net clk_wiz_0_clk_out3 [get_bd_ports nclk] [get_bd_pins proc_sys_reset_n/slowest_sync_clk]
+  connect_bd_net -net clk_wiz_0_clk_out4 [get_bd_ports uclk] [get_bd_pins proc_sys_reset_u/slowest_sync_clk]
+  connect_bd_net -net n_aresetn_1 [get_bd_pins proc_sys_reset_n/peripheral_aresetn] [get_bd_ports nresetn]
+  connect_bd_net -net p_aresetn_1 [get_bd_pins proc_sys_reset_p/peripheral_aresetn] [get_bd_ports presetn]
+  connect_bd_net -net proc_sys_reset_a_interconnect_aresetn [get_bd_pins proc_sys_reset_a/interconnect_aresetn] [get_bd_pins axi_interconnect_0/ARESETN] [get_bd_pins axi_interconnect_0/M00_ARESETN] [get_bd_pins axi_interconnect_0/M01_ARESETN]
+  connect_bd_net -net u_aresetn_1 [get_bd_pins proc_sys_reset_u/peripheral_aresetn] [get_bd_ports uresetn]
+  connect_bd_net -net xclk_1 [get_bd_ports xclk] [get_bd_pins axi_interconnect_0/S00_ACLK]
+  connect_bd_net -net xlconstant_0_dout [get_bd_pins xlconstant_0/dout] [get_bd_pins proc_sys_reset_a/ext_reset_in] [get_bd_pins proc_sys_reset_n/ext_reset_in] [get_bd_pins proc_sys_reset_u/ext_reset_in] [get_bd_pins proc_sys_reset_p/ext_reset_in]
+  connect_bd_net -net xlconstant_1_dout [get_bd_pins xlconstant_1/dout] [get_bd_ports sys_reset]
+  connect_bd_net -net xresetn_1 [get_bd_ports xresetn] [get_bd_pins axi_interconnect_0/S00_ARESETN]
 
   # Create address segments
   assign_bd_address -offset 0x00000000 -range 0x00008000 -target_address_space [get_bd_addr_spaces axi_main] [get_bd_addr_segs axi_cnfg/Reg] -force
