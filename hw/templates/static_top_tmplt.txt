@@ -52,12 +52,25 @@ module static_top (
     metaIntf.s                              s_wback,
 
     // I/O
-    input  wire[0:0]                        pcie_clk_clk_n,
-    input  wire[0:0]                        pcie_clk_clk_p,
-    input  wire[15:0]                       pcie_x16_rxn,
-    input  wire[15:0]                       pcie_x16_rxp,
-    output wire[15:0]                       pcie_x16_txn,
-    output wire[15:0]                       pcie_x16_txp,
+    {% if cnfg.fdev == 'enzian' %}
+    // ECI
+    input  wire[1:0]            prgc_clk_p,
+    input  wire[1:0]            prgc_clk_n,
+    input  wire[5:0]            ccpi_clk_p,
+    input  wire[5:0]            ccpi_clk_n,
+    input  wire[2*N_LANES-1:0]  ccpi_rxn,
+    input  wire[2*N_LANES-1:0]  ccpi_rxp,
+    output wire[2*N_LANES-1:0]  ccpi_txn,
+    output wire[2*N_LANES-1:0]  ccpi_txp,
+    {% else %}
+    // PCIe
+    input  wire[0:0]            pcie_clk_clk_n,
+    input  wire[0:0]            pcie_clk_clk_p,
+    input  wire[15:0]           pcie_x16_rxn,
+    input  wire[15:0]           pcie_x16_rxp,
+    output wire[15:0]           pcie_x16_txn,
+    output wire[15:0]           pcie_x16_txp,
+    {% endif %}
 
     // BSCAN
     output logic                            dyn_bscan_drck,
@@ -144,6 +157,8 @@ module static_top (
     // ================-----------------------------------------------------------------
     // STATIC BD
     // ================----------------------------------------------------------------- 
+    
+    {% if cnfg.fdev != 'enzian'%}
     design_static inst_int_static (
         // Static cnfg
         .axi_cnfg_araddr(axi_cnfg_int.araddr), 
@@ -247,7 +262,7 @@ module static_top (
         .lckresetn(),
         .eos_resetn(eos_resetn)
 	);
-
+    {% endif %}
     assign axi_main_int.araddr[AXI_BPSS_BAR_BITS-1:0] = lsb_araddr[AXI_BPSS_BAR_BITS-1:0];
     assign axi_main_int.araddr[AXI_ADDR_BITS-1:AXI_BPSS_BAR_BITS] = 0;
     assign axi_main_int.awaddr[AXI_BPSS_BAR_BITS-1:0] = lsb_awaddr[AXI_BPSS_BAR_BITS-1:0];

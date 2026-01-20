@@ -1,61 +1,9 @@
 
-################################################################
-# This is a generated script based on design: design_static_eci
-#
-# Though there are limitations about the generated script,
-# the main purpose of this utility is to make learning
-# IP Integrator Tcl commands easier.
-################################################################
-
-namespace eval _tcl {
-proc get_script_folder {} {
-   set script_path [file normalize [info script]]
-   set script_folder [file dirname $script_path]
-   return $script_folder
-}
-}
 variable script_folder
-set script_folder [_tcl::get_script_folder]
-
-################################################################
-# Check if script is running in correct Vivado version.
-################################################################
-set scripts_vivado_version 2023.2
-set current_vivado_version [version -short]
-
-if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
-   puts ""
-   if { [string compare $scripts_vivado_version $current_vivado_version] > 0 } {
-      catch {common::send_gid_msg -ssname BD::TCL -id 2042 -severity "ERROR" " This script was generated using Vivado <$scripts_vivado_version> and is being run in <$current_vivado_version> of Vivado. Sourcing the script failed since it was created with a future version of Vivado."}
-
-   } else {
-     catch {common::send_gid_msg -ssname BD::TCL -id 2041 -severity "ERROR" "This script was generated using Vivado <$scripts_vivado_version> and is being run in <$current_vivado_version> of Vivado. Please run the script in Vivado <$scripts_vivado_version> then open the design in Vivado <$current_vivado_version>. Upgrade the design by running \"Tools => Report => Report IP Status...\", then run write_bd_tcl to create an updated script."}
-
-   }
-
-   return 1
-}
-
-################################################################
-# START
-################################################################
-
-# To test this script, run the following commands from Vivado Tcl console:
-# source design_static_eci_script.tcl
-
-# If there is no project opened, this script will create a
-# project, but make sure you do not have an existing project
-# <./myproj/project_1.xpr> in the current working folder.
-
-set list_projs [get_projects -quiet]
-if { $list_projs eq "" } {
-   create_project project_1 myproj -part xcu55c-fsvh2892-2L-e
-}
-
 
 # CHANGE DESIGN NAME HERE
 variable design_name
-set design_name design_static_eci
+set design_name design_static
 
 # If you do not already have an existing IP Integrator design open,
 # you can create a design using the following command:
@@ -122,6 +70,8 @@ if { $nRet != 0 } {
    return $nRet
 }
 
+# keeeeeeeeeeeeeeeeeeeeep 
+
 set bCheckIPsPassed 1
 ##################################################################
 # CHECK IPs
@@ -160,6 +110,7 @@ if { $bCheckIPsPassed != 1 } {
 # DESIGN PROCs
 ##################################################################
 
+# keeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeep
 
 # Hierarchical cell: clk_rst
 proc create_hier_cell_clk_rst { parentCell nameHier } {
@@ -298,9 +249,15 @@ proc create_hier_cell_clk_rst { parentCell nameHier } {
 # Procedure to create entire design; Provide argument to make
 # procedure reusable. If parentCell is "", will use root.
 proc create_root_design { parentCell } {
+  set design_name design_static
+
+  # ! check syntax
+  common::send_msg_id "BD_TCL-003" "INFO" "Currently there is no design <$design_name>
+  in project, so creating one..."
+
+  create_bd_design $design_name
 
   variable script_folder
-  variable design_name
 
   if { $parentCell eq "" } {
      set parentCell [get_bd_cells /]
@@ -439,8 +396,12 @@ proc create_root_design { parentCell } {
   # Restore current instance
   current_bd_instance $oldCurInst
 
+  # ! double check
   validate_bd_design
   save_bd_design
+  close_bd_design $design_name
+
+  return 0
 }
 # End of create_root_design()
 
