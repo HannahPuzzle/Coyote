@@ -2,3 +2,9 @@
 	path = hw/services/network
 	url = https://github.com/fpgasystems/fpga-network-stack.git
 	branch = coyote-TCP-RDMA
+[submodule "hw/ext/eci-transport"]
+	path = hw/ext/eci-transport
+	url = git@gitlab.inf.ethz.ch:project-openenzian/fpga-stack/eci-transport.git
+[submodule "hw/ext/eci-toolkit"]
+	path = hw/ext/eci-toolkit
+	url = git@gitlab.inf.ethz.ch:project-openenzian/fpga-stack/eci-toolkit.git
