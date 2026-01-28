@@ -276,8 +276,27 @@ logic c2h_ready;
 logic [7:0] h2c_status;
 logic [7:0] c2h_status;
 
+task tie_off_s (); // ?
+	h2c_ready = 1'b0;
+	c2h_ready = 1'b0;
+	h2c_status = 8'b0;
+	c2h_status = 8'b0;
+endtask
+
+task tie_off_m (); // ?
+	h2c_addr = 64'b0;
+	h2c_len = 28'b0;
+	h2c_ctl = 16'b0;
+	h2c_valid = 1'b0;
+	c2h_addr = 64'b0;
+	c2h_len = 28'b0;
+	c2h_ctl = 16'b0;
+	c2h_valid = 1'b0;
+endtask
+
 // Slave
 modport s (
+	import tie_off_s,
 	input h2c_addr,
 	input h2c_len,
 	input h2c_ctl,
@@ -294,6 +313,7 @@ modport s (
 
 // Master
 modport m (
+	import tie_off_m,
 	output h2c_addr,
 	output h2c_len,
 	output h2c_ctl,
