@@ -116,7 +116,7 @@ module static_top (
     // AXI IO
     AXI4L #(.AXI4L_DATA_BITS(64), .AXI4L_ADDR_BITS(44)) axi_io ();
     AXI4L #(.AXI4L_DATA_BITS(64), .AXI4L_ADDR_BITS(44)) axi_intm (); // !
-    axi_intm.tie_off_s();
+    always_comb axi_intm.tie_off_s();
 
     // AXI streams
     AXI4S axis_dyn_out_int [N_XCHAN] ();
@@ -131,8 +131,10 @@ module static_top (
     always_comb dma_wr_req_int[i].tie_off_s();
     always_comb xdma_req_int[i].tie_off_m();
    end
-   always_comb dma_rd_req_int[0+:N_SCHAN].tie_off_m();
-   always_comb dma_wr_req_int[0+:N_SCHAN].tie_off_m();
+   for(genvar i = 0; i < N_SCHAN; i++) begin
+    always_comb dma_rd_req_int[i].tie_off_m();
+    always_comb dma_wr_req_int[i].tie_off_m();
+   end
 
     // Decoupling 
     logic pr_slct;
@@ -356,7 +358,7 @@ module static_top (
         .s_io_axil_wready(axi_intm.wready),
         .s_io_axil_bresp(axi_intm.bresp),
         .s_io_axil_bvalid(axi_intm.bvalid),
-        .s_io_axil_bready(axi_intm.)bready,
+        .s_io_axil_bready(axi_intm.bready),
         .s_io_axil_araddr(axi_intm.araddr),
         .s_io_axil_arvalid(axi_intm.arvalid),
         .s_io_axil_arready(axi_intm.arready),
@@ -454,7 +456,7 @@ module static_top (
         .dresetn(dresetn),
         .sresetn(sresetn),
         .xclk(sclk),
-        .xresetn(xresetn)
+        .xresetn(xresetn),
         .eos_resetn(eos_resetn)
     );
     {% endif %}
