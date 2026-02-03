@@ -236,7 +236,7 @@ port (
     prgc1_clk_p             : in std_logic; -- ?
     prgc1_clk_n             : in std_logic; -- ?
 
-    reset_sys               : in std_logic
+    reset_sys               : in std_logic;
     reset_out               : out std_logic;
     reset_n_out             : out std_logic;
     link1_up                : in std_logic;
@@ -531,7 +531,7 @@ gpi_regs(15) <= gpo_regs(15);
 
 i_eci_platform : eci_platform
 generic map (
-    SHELL_VERSION : "02f19869" -- ? (just copied current version)
+    SHELL_VERSION => "02f19869" -- ? (just copied current version)
 )
 port map (
     clk_sys                 => clk_sys,
