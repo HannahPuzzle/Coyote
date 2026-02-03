@@ -72,11 +72,11 @@ port (
     s_io_axil_link_rdata     : out std_logic_vector(63 downto 0);
     s_io_axil_link_rresp     : out std_logic_vector(1 downto 0);
     s_io_axil_link_rvalid    : out std_logic;
-    s_io_axil_link_rready    : in std_logic;
+    s_io_axil_link_rready    : in std_logic
 );
 end module_inst;
 
-architecture Behavioural of module_inst is
+architecture behavioural of module_inst is
 
 component eci_platform is
 generic (
@@ -655,8 +655,8 @@ port map (
 
 i_eci_gateway : eci_gateway
 generic map (
-    RX_CROSSBAR_TYPE    => "lite"
-    DEBUG_BRIDGE_PRESENT=> false,
+    RX_CROSSBAR_TYPE        => "lite",
+    DEBUG_BRIDGE_PRESENT    => false,
     TX_NO_CHANNELS      => 1,
     RX_NO_CHANNELS      => 2,
     RX_FILTER_VC        => (ECI_FILTER_VC_MASK((6, 7)),
@@ -764,7 +764,7 @@ port map (
 
     tx_eci_channels(0)      => link_eci_packet_tx.c_gsdn,
 
-    tx_eci_channels_ready(0)   => link_eci_packet_tx.c_gsdn_ready,
+    tx_eci_channels_ready(0)   => link_eci_packet_tx.c_gsdn_ready
 );
 
 gsync_loopback : loopback_vc_resp_nodata
@@ -786,4 +786,4 @@ port map (
 );
 
 
-end Behavioural;
+end behavioural;
