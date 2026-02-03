@@ -276,7 +276,7 @@ module cyt_top (
     output wire[11:0]           CCPI_F2C_P_LINK1,
     output wire[11:0]           CCPI_F2C_N_LINK1,
     output wire[11:0]           CCPI_F2C_P_LINK2,
-    output wire[11:0]           CCPI_F2C_N_LINK2,
+    output wire[11:0]           CCPI_F2C_N_LINK2
     {% else %}
     // PCIe
     input  wire[0:0]            pcie_clk_clk_n,
