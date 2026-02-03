@@ -15,29 +15,27 @@ port (
     clk_sys     : out std_logic;
     reset_sys   : out std_logic;
 
-    -- prgc
-    prgc0_clk_p             : in std_logic;
-    prgc0_clk_n             : in std_logic;
-    prgc1_clk_p             : in std_logic;
-    prgc1_clk_n             : in std_logic;
-
     -- 156.25MHz transceiver reference clocks
-    ccpi_clk_p1         : in std_logic_vector(2 downto 0);
-    ccpi_clk_n1         : in std_logic_vector(2 downto 0);
-    ccpi_clk_p2         : in std_logic_vector(5 downto 3); -- ?
-    ccpi_clk_n2         : in std_logic_vector(5 downto 3); -- ?
+    F_CCPIC_CLK_P_LINK1 : in std_logic_vector(2 downto 0);
+    F_CCPIC_CLK_N_LINK1 : in std_logic_vector(2 downto 0);
 
+    F_CCPIC_CLK_P_LINK2 : in std_logic_vector(5 downto 3);
+    F_CCPIC_CLK_N_LINK2 : in std_logic_vector(5 downto 3);
+    -- free-running clocks
+    F_PRGC0_CLK_P   : in std_logic;
+    F_PRGC0_CLK_N   : in std_logic;
+    F_PRGC1_CLK_P   : in std_logic;
+    F_PRGC1_CLK_N   : in std_logic;
     -- RX differential pairs
-    ccpi_rxp1           : in std_logic_vector(11 downto 0);
-    ccpi_rxn1           : in std_logic_vector(11 downto 0);
-    ccpi_rxp2           : in std_logic_vector(11 downto 0);
-    ccpi_rxn2           : in std_logic_vector(11 downto 0);
-
+    CCPI_C2F_P_LINK1 : in std_logic_vector(11 downto 0);
+    CCPI_C2F_N_LINK1 : in std_logic_vector(11 downto 0);
+    CCPI_C2F_P_LINK2 : in std_logic_vector(11 downto 0);
+    CCPI_C2F_N_LINK2 : in std_logic_vector(11 downto 0);
     -- TX differential pairs
-    ccpi_txp1           : out std_logic_vector(11 downto 0);
-    ccpi_txn1           : out std_logic_vector(11 downto 0);
-    ccpi_txp2           : out std_logic_vector(11 downto 0);
-    ccpi_txn2           : out std_logic_vector(11 downto 0);
+    CCPI_F2C_P_LINK1 : out std_logic_vector(11 downto 0);
+    CCPI_F2C_N_LINK1 : out std_logic_vector(11 downto 0);
+    CCPI_F2C_P_LINK2 : out std_logic_vector(11 downto 0);
+    CCPI_F2C_N_LINK2 : out std_logic_vector(11 downto 0);
 
     -- AXIL
     m_io_axil_link_awaddr    : out std_logic_vector(43 downto 0);
@@ -540,21 +538,21 @@ port map (
     clk_icap                => clk_icap,
     reset_sys               => reset_sys,
 
-    eci_gt_clk_p_link1      => ccpi_clk_p1, -- ? what is correct in?
-    eci_gt_clk_n_link1      => ccpi_clk_n1, -- ?
+    eci_gt_clk_p_link1      => F_CCPIC_CLK_P_LINK1,
+    eci_gt_clk_n_link1      => F_CCPIC_CLK_N_LINK1,
 
-    eci_gt_clk_p_link2      => ccpi_clk_p2, -- ?
-    eci_gt_clk_n_link2      => ccpi_clk_n2, -- ?
+    eci_gt_clk_p_link2      => F_CCPIC_CLK_P_LINK2,
+    eci_gt_clk_n_link2      => F_CCPIC_CLK_N_LINK2,
 
-    eci_gt_rx_p_link1       => ccpi_rxp1, -- ?
-    eci_gt_rx_n_link1       => ccpi_rxn1, -- ?
-    eci_gt_rx_p_link2       => ccpi_rxp2, -- ?
-    eci_gt_rx_n_link2       => ccpi_rxn2, -- ?
+    eci_gt_rx_p_link1       => CCPI_C2F_P_LINK1,
+    eci_gt_rx_n_link1       => CCPI_C2F_N_LINK1,
+    eci_gt_rx_p_link2       => CCPI_C2F_P_LINK2,
+    eci_gt_rx_n_link2       => CCPI_C2F_N_LINK2,
 
-    eci_gt_tx_p_link1       => ccpi_txp1,
-    eci_gt_tx_n_link1       => ccpi_txn1,
-    eci_gt_tx_p_link2       => ccpi_txp2,
-    eci_gt_tx_n_link2       => ccpi_txn2,
+    eci_gt_tx_p_link1       => CCPI_F2C_P_LINK1,
+    eci_gt_tx_n_link1       => CCPI_F2C_N_LINK1,
+    eci_gt_tx_p_link2       => CCPI_F2C_P_LINK2,
+    eci_gt_tx_n_link2       => CCPI_F2C_N_LINK2,
 
     link1_in_data           => link1_in_data,
     link1_in_vc_no          => link1_in_vc_no,
