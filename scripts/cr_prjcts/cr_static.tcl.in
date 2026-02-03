@@ -89,6 +89,7 @@ add_files "$proj_dir/hdl/static"
 if {$cfg(fdev) eq "enzian"} {
     add_files "$hw_dir/ext/eci-transport/hdl"
     add_files "$hw_dir/ext/eci-toolkit/hdl"
+    add_files "$hw_dir/hdl/eci"
 }
 
 # Top level
