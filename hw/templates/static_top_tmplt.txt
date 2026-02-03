@@ -457,8 +457,8 @@ module static_top (
         .s_io_axil_rready(axi_io.rready),
         .clk_sys(eci_clk),
         .reset_sys(eci_reset),
-        .prgc0_clk_n(prgc_clk_n[0]),
-        .prgc0_clk_p(prgc_clk_p[0]),
+        .prgc0_clk_n(F_PRGC0_CLK_N),
+        .prgc0_clk_p(F_PRGC0_CLK_P),
 
         .pclk(pclk),
         .presetn(presetn),
