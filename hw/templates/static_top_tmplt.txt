@@ -30,6 +30,7 @@ import lynxTypes::*;
 
 `include "axi_macros.svh"
 `include "lynx_macros.svh"
+`include "module_inst.vhd"
 
 module static_top (
     // Clocks
