@@ -51,7 +51,7 @@ add_file "$dcp_dir/shell_subdivided.dcp"
 
 add_files -fileset [get_filesets constrs_1] "$hw_dir/constraints/$cfg(fdev)/shell/impl"
 add_files -fileset [get_filesets constrs_1] "$hw_dir/constraints/$cfg(fdev)/dynamic/impl"
-add_files -fileset [get_filesets constrs_1] "$hw_dir/constraints/$cfg(fdev)/fplan"
+# add_files -fileset [get_filesets constrs_1] "$hw_dir/constraints/$cfg(fdev)/fplan"
 if {$cfg(fplan_path) != "0"} {
     add_files -fileset [get_filesets constrs_1] "$cfg(fplan_path)"
     set_property PROCESSING_ORDER LATE [get_files [file tail $cfg(fplan_path)]]

@@ -1,0 +1,21 @@
+# NVME 4-lane
+
+set_property PACKAGE_PIN Y11 [get_ports F_NVMEC_CLK_P]
+set_property PACKAGE_PIN Y10 [get_ports F_NVMEC_CLK_N]
+
+set_property PACKAGE_PIN V7 [get_ports {F_NVME_TX_P[0]}]
+set_property PACKAGE_PIN V6 [get_ports {F_NVME_TX_N[0]}]
+set_property PACKAGE_PIN V2 [get_ports {F_NVME_RX_P[0]}]
+set_property PACKAGE_PIN V1 [get_ports {F_NVME_RX_N[0]}]
+set_property PACKAGE_PIN Y7 [get_ports {F_NVME_TX_P[1]}]
+set_property PACKAGE_PIN Y6 [get_ports {F_NVME_TX_N[1]}]
+set_property PACKAGE_PIN Y2 [get_ports {F_NVME_RX_P[1]}]
+set_property PACKAGE_PIN Y1 [get_ports {F_NVME_RX_N[1]}]
+set_property PACKAGE_PIN W9 [get_ports {F_NVME_TX_P[2]}]
+set_property PACKAGE_PIN W8 [get_ports {F_NVME_TX_N[2]}]
+set_property PACKAGE_PIN W4 [get_ports {F_NVME_RX_P[2]}]
+set_property PACKAGE_PIN W3 [get_ports {F_NVME_RX_N[2]}]
+set_property PACKAGE_PIN AA9 [get_ports {F_NVME_TX_P[3]}]
+set_property PACKAGE_PIN AA8 [get_ports {F_NVME_TX_N[3]}]
+set_property PACKAGE_PIN AA4 [get_ports {F_NVME_RX_P[3]}]
+set_property PACKAGE_PIN AA3 [get_ports {F_NVME_RX_N[3]}]
