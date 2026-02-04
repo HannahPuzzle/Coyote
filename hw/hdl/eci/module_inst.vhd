@@ -663,7 +663,8 @@ generic map (
                             "11111"),
     RX_FILTER_TYPE      => (ECI_MREQ_GSYNC,
                             ECI_MREQ_GINV),
-    RX_FILTER_CLI_MASK  => (ECI_FILTER_CLI_UNUSED),
+    RX_FILTER_CLI_MASK  => (ECI_FILTER_CLI_UNUSED,
+                            ECI_FILTER_CLI_UNUSED),
     RX_FILTER_CLI       => (ECI_FILTER_CLI_UNUSED,
                             ECI_FILTER_CLI_UNUSED)
 )
