@@ -409,10 +409,10 @@ signal l2_eci_rsp         : ECI_CHANNEL;
 signal l2_eci_rsp_ready   : std_logic;
 
 
-signal clk_sys         : std_logic;
+signal clk_system      : std_logic;
 signal clk_icap        : std_logic;
 signal clk_io          : std_logic;
-signal reset_sys       : std_logic;
+signal reset_system    : std_logic;
 signal reset           : std_logic;
 signal reset_n         : std_logic;
 
@@ -446,8 +446,6 @@ signal link2_out : ECI_LINK_TX;
 
 signal icap_axil_link                   : ICAP_AXI_LITE;
 
-signal disable_2nd_link     : std_logic;
-
 signal eci_link_up          : std_logic;
 signal link1_eci_link_up    : std_logic;
 signal link2_eci_link_up    : std_logic;
@@ -480,36 +478,36 @@ signal canCallWhatever1 : std_logic;
 
 begin
 
-disable_2nd_link <= 0;
+disable_2nd_link <= '0';
 
 shell_status_reg <= shell_control_reg; -- ? (einfach übernommen)
 
 -- tie down icap
-icap_axil_link.awaddr   <= 0;
-icap_axil_link.awvalid  <= 0;
-icap_axil_link.wdata    <= 0;
-icap_axil_link.wstrb    <= 0;
-icap_axil_link.wvalid   <= 0;
-icap_axil_link.bready   <= 0;
-icap_axil_link.araddr   <= 0;
-icap_axil_link.arvalid  <= 0;
-icap_axil_link.rready   <= 0;
+icap_axil_link.awaddr   <= "00000000";
+icap_axil_link.awvalid  <= '0';
+icap_axil_link.wdata    <= "0";
+icap_axil_link.wstrb    <= "000";
+icap_axil_link.wvalid   <= '0';
+icap_axil_link.bready   <= '0';
+icap_axil_link.araddr   <= "00000000";
+icap_axil_link.arvalid  <= '0';
+icap_axil_link.rready   <= '0';
 
 -- tie down bscan master (even possible/necessary?)
 m0_bscan.tdo <= 0;
 
 -- tie down bscan slave
-s_bscan.bscanid_en  <= 0;
-s_bscan.capture     <= 0;
-s_bscan.drck        <= 0;
-s_bscan.reset       <= 0;
-s_bscan.runtest     <= 0;
-s_bscan.sel         <= 0;
-s_bscan.shift       <= 0;
-s_bscan.tck         <= 0;
-s_bscan.tdi         <= 0;
-s_bscan.tms         <= 0;
-s_bscan.update      <= 0;
+s_bscan.bscanid_en  <= '0';
+s_bscan.capture     <= '0';
+s_bscan.drck        <= '0';
+s_bscan.reset       <= '0';
+s_bscan.runtest     <= '0';
+s_bscan.sel         <= '0';
+s_bscan.shift       <= '0';
+s_bscan.tck         <= '0';
+s_bscan.tdi         <= '0';
+s_bscan.tms         <= '0';
+s_bscan.update      <= '0';
 
 -- Sample register routing
 gpi_regs(0) <= x"000000000000dead";
@@ -534,9 +532,9 @@ generic map (
     SHELL_VERSION => "02f19869" -- ? (just copied current version)
 )
 port map (
-    clk_sys                 => clk_sys,
+    clk_sys                 => clk_system,
     clk_icap                => clk_icap,
-    reset_sys               => reset_sys,
+    reset_sys               => reset_system,
 
     eci_gt_clk_p_link1      => F_CCPIC_CLK_P_LINK1,
     eci_gt_clk_n_link1      => F_CCPIC_CLK_N_LINK1,
@@ -672,7 +670,7 @@ generic map (
                             ECI_FILTER_CLI_UNUSED)
 )
 port map (
-    clk_sys                 => clk_sys,
+    clk_sys                 => clk_system,
     clk_io_out              => clk_io,
     clk_prgc0_out           => canCallWhatever0, -- ?
     clk_prgc1_out           => canCallWhatever1, -- ?
@@ -682,7 +680,7 @@ port map (
     prgc1_clk_p             => prgc1_clk_p,
     prgc1_clk_n             => prgc1_clk_n,
 
-    reset_sys               => reset_sys,
+    reset_sys               => reset_system,
     reset_out               => reset,
     reset_n_out             => reset_n,
     link1_up                => link1_eci_link_up,
@@ -773,8 +771,8 @@ generic map (
     GSDN_GSYNC_FN => 1 -- ? (einfach übernommen)
 )
 port map (
-    clk => clk_sys,
-    reset => reset_sys,
+    clk => clk_system,
+    reset => reset_system,
 
     vc_req_i       => link_eci_packet_rx.c_gsync.data(0),
     vc_req_valid_i => link_eci_packet_rx.c_gsync.valid,
