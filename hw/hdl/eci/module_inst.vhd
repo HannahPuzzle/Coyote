@@ -494,7 +494,7 @@ icap_axil_link.arvalid  <= '0';
 icap_axil_link.rready   <= '0';
 
 -- tie down bscan master (even possible/necessary?)
-m0_bscan.tdo <= 0;
+m0_bscan.tdo <= '0';
 
 -- tie down bscan slave
 s_bscan.bscanid_en  <= '0';
@@ -675,10 +675,10 @@ port map (
     clk_prgc0_out           => canCallWhatever0, -- ?
     clk_prgc1_out           => canCallWhatever1, -- ?
 
-    prgc0_clk_p             => prgc0_clk_p, --?
-    prgc0_clk_n             => prgc0_clk_n,
-    prgc1_clk_p             => prgc1_clk_p,
-    prgc1_clk_n             => prgc1_clk_n,
+    prgc0_clk_p             => F_PRGC0_CLK_P,
+    prgc0_clk_n             => F_PRGC0_CLK_N,
+    prgc1_clk_p             => F_PRGC1_CLK_P,
+    prgc1_clk_n             => F_PRGC1_CLK_N,
 
     reset_sys               => reset_system,
     reset_out               => reset,
