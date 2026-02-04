@@ -483,13 +483,13 @@ disable_2nd_link <= '0';
 shell_status_reg <= shell_control_reg; -- ? (einfach übernommen)
 
 -- tie down icap
-icap_axil_link.awaddr   <= "00000000";
+icap_axil_link.awaddr   <= "000000000";
 icap_axil_link.awvalid  <= '0';
-icap_axil_link.wdata    <= "0";
-icap_axil_link.wstrb    <= "000";
+icap_axil_link.wdata    <= "00000000000000000000000000000000";
+icap_axil_link.wstrb    <= "0000";
 icap_axil_link.wvalid   <= '0';
 icap_axil_link.bready   <= '0';
-icap_axil_link.araddr   <= "00000000";
+icap_axil_link.araddr   <= "000000000";
 icap_axil_link.arvalid  <= '0';
 icap_axil_link.rready   <= '0';
 
