@@ -231,10 +231,10 @@ port (
     clk_prgc0_out           : out std_logic; -- ?
     clk_prgc1_out           : out std_logic; -- ?
 
-    prgc0_clk_p             : in std_logic; -- ? (see input)
-    prgc0_clk_n             : in std_logic; -- ?
-    prgc1_clk_p             : in std_logic; -- ?
-    prgc1_clk_n             : in std_logic; -- ?
+    prgc0_clk_p             : in std_logic;
+    prgc0_clk_n             : in std_logic;
+    prgc1_clk_p             : in std_logic;
+    prgc1_clk_n             : in std_logic;
 
     reset_sys               : in std_logic;
     reset_out               : out std_logic;
@@ -721,7 +721,7 @@ port map (
     link1_out_hi_valid      => link1_out.hi.valid,
     link1_out_hi_ready      => link1_out.hi_ready,
 
-    link1_out_lo_data       => link1_out.lo.data,
+    link1_out_lo_data       => link1_out.lo.data(0),
     link1_out_lo_vc_no      => link1_out.lo.vc_no,
     link1_out_lo_valid      => link1_out.lo.valid,
     link1_out_lo_ready      => link1_out.lo_ready,
@@ -762,7 +762,7 @@ port map (
     link2_out_hi_valid      => link2_out.hi.valid,
     link2_out_hi_ready      => link2_out.hi_ready,
 
-    link2_out_lo_data       => link2_out.lo.data,
+    link2_out_lo_data       => link2_out.lo.data(0),
     link2_out_lo_vc_no      => link2_out.lo.vc_no,
     link2_out_lo_valid      => link2_out.lo.valid,
     link2_out_lo_ready      => link2_out.lo_ready,
