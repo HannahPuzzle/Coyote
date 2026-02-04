@@ -404,7 +404,6 @@ module static_top (
         .axi_main_araddr(lsb_araddr), 
         .axi_main_arburst(axi_main_int.arburst),
         .axi_main_arcache(axi_main_int.arcache),
-        .axi_main_arid(axi_main_int.arid),
         .axi_main_arlen(axi_main_int.arlen), 
         .axi_main_arlock(axi_main_int.arlock),
         .axi_main_arprot(axi_main_int.arprot),
