@@ -204,3 +204,6 @@ create_ip -name mdm -vendor xilinx.com -library ip \
               -module_name mdm_0
 generate_target all [get_ips mdm_0]
 
+# needed for static slave
+create_ip -name axis_data_fifo -vendor xilinx.com -library ip -version 2.0 -module_name axis_data_fifo_static_slave
+set_property -dict [list CONFIG.TDATA_NUM_BYTES {12} CONFIG.FIFO_DEPTH {32} CONFIG.HAS_WR_DATA_COUNT {1}] [get_ips axis_data_fifo_static_slave]
