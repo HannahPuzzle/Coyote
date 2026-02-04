@@ -342,7 +342,7 @@ module static_top (
         .CCPI_F2C_P_LINK1(CCPI_F2C_P_LINK1),    
         .CCPI_F2C_N_LINK1(CCPI_F2C_N_LINK1),    
         .CCPI_F2C_P_LINK2(CCPI_F2C_P_LINK2),    
-        .CCPI_F2C_N_LINK2(CCPI_F2C_P_LINK2),    
+        .CCPI_F2C_N_LINK2(CCPI_F2C_N_LINK2),    
         .m_io_axil_link_awaddr(axi_io.awaddr),
         .m_io_axil_link_awvalid(axi_io.awvalid),
         .m_io_axil_link_awready(axi_io.awready),

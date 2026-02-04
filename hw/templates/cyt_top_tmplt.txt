@@ -372,7 +372,7 @@ module cyt_top (
             .CCPI_F2C_P_LINK1(CCPI_F2C_P_LINK1),    
             .CCPI_F2C_N_LINK1(CCPI_F2C_N_LINK1),    
             .CCPI_F2C_P_LINK2(CCPI_F2C_P_LINK2),    
-            .CCPI_F2C_N_LINK2(CCPI_F2C_P_LINK2),
+            .CCPI_F2C_N_LINK2(CCPI_F2C_N_LINK2),
         {% endif %}
 
         .dyn_bscan_drck(dyn_bscan_drck),
