@@ -688,7 +688,7 @@ port map (
     link1_in_data(63 downto 0)           => link1_in_data(0),
     link1_in_data(127 downto 64)         => link1_in_data(1),
     link1_in_data(191 downto 128)        => link1_in_data(2),
-    link1_in_data(255 downto 129)        => link1_in_data(3),
+    link1_in_data(255 downto 192)        => link1_in_data(3),
     link1_in_data(319 downto 256)        => link1_in_data(4),
     link1_in_data(383 downto 320)        => link1_in_data(5),
     link1_in_data(447 downto 384)        => link1_in_data(6),
