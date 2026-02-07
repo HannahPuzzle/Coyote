@@ -182,7 +182,6 @@ proc cr_bd_design_static { parentCell } {
    }
 
   variable script_folder
-  variable design_name
 
   if { $parentCell eq "" } {
      set parentCell [get_bd_cells /]
