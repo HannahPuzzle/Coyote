@@ -1,8 +1,6 @@
-
 ##################################################################
 # DESIGN PROCs
 ##################################################################
-
 
 # Hierarchical cell: clk_rst
 proc create_hier_cell_clk_rst { parentCell nameHier } {
@@ -54,7 +52,6 @@ proc create_hier_cell_clk_rst { parentCell nameHier } {
   create_bd_pin -dir O -from 0 -to 0 -type rst dresetn
   create_bd_pin -dir O -from 0 -to 0 -type rst peripheral_aresetn
   create_bd_pin -dir I -type clk clk_sys
-  create_bd_pin -dir I -type clk prgc1
 
   # Create instance: rst_pclk, and set properties
   set rst_pclk [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_pclk ]
@@ -105,7 +102,7 @@ proc create_hier_cell_clk_rst { parentCell nameHier } {
     CONFIG.MMCM_CLKOUT2_DIVIDE {10} \
     CONFIG.NUM_OUT_CLKS {3} \
     CONFIG.OPTIMIZE_CLOCKING_STRUCTURE_EN {true} \
-    CONFIG.PRIM_SOURCE {Single_ended_clock_capable_pin} \
+    CONFIG.PRIM_SOURCE {Differential_clock_capable_pin} \
     CONFIG.USE_LOCKED {false} \
     CONFIG.USE_RESET {false} \
   ] $clk_wiz_0
@@ -117,13 +114,15 @@ proc create_hier_cell_clk_rst { parentCell nameHier } {
   # Create instance: rst_clk_sys_322M, and set properties
   set rst_clk_sys_322M [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_clk_sys_322M ]
 
+  # Create interface connections
+  connect_bd_intf_net -intf_net prgc0_1 [get_bd_intf_pins prgc0] [get_bd_intf_pins clk_wiz_0/CLK_IN1_D]
+
   # Create port connections
   connect_bd_net -net clk_sys_1 [get_bd_pins clk_sys] [get_bd_pins rst_clk_sys_322M/slowest_sync_clk]
   connect_bd_net -net clk_wiz_0_dclk [get_bd_pins clk_wiz_0/dclk] [get_bd_pins dclk] [get_bd_pins rst_dclk/slowest_sync_clk]
   connect_bd_net -net clk_wiz_0_pclk [get_bd_pins clk_wiz_0/pclk] [get_bd_pins pclk] [get_bd_pins rst_pclk/slowest_sync_clk]
   connect_bd_net -net clk_wiz_0_xclk [get_bd_pins clk_wiz_0/xclk] [get_bd_pins xclk] [get_bd_pins rst_xclk_sys/slowest_sync_clk] [get_bd_pins rst_xclk/slowest_sync_clk]
   connect_bd_net -net eos_resetn_1 [get_bd_pins eos_resetn] [get_bd_pins rst_xclk/aux_reset_in]
-  connect_bd_net -net prgc1_1 [get_bd_pins prgc1] [get_bd_pins clk_wiz_0/clk_in1]
   connect_bd_net -net reset_sys_1 [get_bd_pins reset_sys] [get_bd_pins rst_xclk_sys/ext_reset_in] [get_bd_pins rst_clk_sys_322M/ext_reset_in]
   connect_bd_net -net rst_clk_sys_322M_peripheral_aresetn [get_bd_pins rst_clk_sys_322M/peripheral_aresetn] [get_bd_pins peripheral_aresetn]
   connect_bd_net -net rst_dclk_peripheral_aresetn [get_bd_pins rst_dclk/peripheral_aresetn] [get_bd_pins dresetn]
@@ -140,14 +139,14 @@ proc create_hier_cell_clk_rst { parentCell nameHier } {
 # Procedure to create entire design; Provide argument to make
 # procedure reusable. If parentCell is "", will use root.
 proc cr_bd_design_static { parentCell } {
-   set design_name design_static
+  set design_name design_static
 
-   common::send_gid_msg -ssname BD::TCL -id 2003 -severity "INFO" "Currently 
-   there is no design <$design_name> in project, so creating one..."
+  common::send_gid_msg -ssname BD::TCL -id 2003 -severity "INFO" "Currently 
+  there is no design <$design_name> in project, so creating one..."
 
-   create_bd_design $design_name
+  create_bd_design $design_name
 
-   set bCheckIPsPassed 1
+  set bCheckIPsPassed 1
    ##################################################################
    # CHECK IPs
    ##################################################################
@@ -173,16 +172,15 @@ proc cr_bd_design_static { parentCell } {
          catch {common::send_gid_msg -ssname BD::TCL -id 2012 -severity "ERROR" "The following IPs are not found in the IP Catalog:\n  $list_ips_missing\n\nResolution: Please add the repository containing the IP(s) to the project." }
          set bCheckIPsPassed 0
       }
-
+   
    }
 
    if { $bCheckIPsPassed != 1 } {
       common::send_gid_msg -ssname BD::TCL -id 2023 -severity "WARNING" "Will not continue with creation of design due to the error(s) above."
       return 3
    }
-
+  
   variable script_folder
-  variable design_name
 
   if { $parentCell eq "" } {
      set parentCell [get_bd_cells /]
@@ -210,6 +208,8 @@ proc cr_bd_design_static { parentCell } {
 
 
   # Create interface ports
+  set prgc0 [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:diff_clock_rtl:1.0 prgc0 ]
+
   set s_io_axil [ create_bd_intf_port -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 s_io_axil ]
   set_property -dict [ list \
    CONFIG.ADDR_WIDTH {44} \
@@ -278,7 +278,6 @@ proc cr_bd_design_static { parentCell } {
   set_property -dict [ list \
    CONFIG.ASSOCIATED_BUSIF {s_io_axil} \
  ] $clk_sys
-  set prgc0 [ create_bd_port -dir I -type clk -freq_hz 100000000 prgc0 ]
 
   # Create instance: clk_rst
   create_hier_cell_clk_rst [current_bd_instance .] clk_rst
@@ -296,6 +295,7 @@ proc cr_bd_design_static { parentCell } {
   # Create interface connections
   connect_bd_intf_net -intf_net axi_interconnect_0_M00_AXI [get_bd_intf_ports axi_main] [get_bd_intf_pins axi_interconnect_0/M00_AXI]
   connect_bd_intf_net -intf_net axi_interconnect_0_M01_AXI [get_bd_intf_ports axi_cnfg] [get_bd_intf_pins axi_interconnect_0/M01_AXI]
+  connect_bd_intf_net -intf_net prgc0_1 [get_bd_intf_ports prgc0] [get_bd_intf_pins clk_rst/prgc0]
   connect_bd_intf_net -intf_net s_io_axil_1 [get_bd_intf_ports s_io_axil] [get_bd_intf_pins axi_interconnect_0/S00_AXI]
 
   # Create port connections
@@ -305,7 +305,6 @@ proc cr_bd_design_static { parentCell } {
   connect_bd_net -net clk_wiz_0_pclk [get_bd_pins clk_rst/pclk] [get_bd_ports pclk]
   connect_bd_net -net clk_wiz_0_xclk [get_bd_pins clk_rst/xclk] [get_bd_ports xclk] [get_bd_pins axi_interconnect_0/ACLK] [get_bd_pins axi_interconnect_0/M00_ACLK] [get_bd_pins axi_interconnect_0/M01_ACLK]
   connect_bd_net -net eos_resetn_1 [get_bd_ports eos_resetn] [get_bd_pins clk_rst/eos_resetn]
-  connect_bd_net -net prgc0_1 [get_bd_ports prgc0] [get_bd_pins clk_rst/prgc1]
   connect_bd_net -net reset_sys_1 [get_bd_ports reset_sys] [get_bd_pins clk_rst/reset_sys]
   connect_bd_net -net rst_dclk_peripheral_aresetn [get_bd_pins clk_rst/dresetn] [get_bd_ports dresetn]
   connect_bd_net -net rst_pclk_peripheral_aresetn [get_bd_pins clk_rst/presetn] [get_bd_ports presetn]
@@ -320,7 +319,7 @@ proc cr_bd_design_static { parentCell } {
   # Restore current instance
   current_bd_instance $oldCurInst
 
-   # ! double check
+  # ! double check
   validate_bd_design
   save_bd_design
   close_bd_design $design_name
@@ -328,12 +327,3 @@ proc cr_bd_design_static { parentCell } {
   return 0
 }
 # End of cr_bd_design_static()
-
-
-# ##################################################################
-# # MAIN FLOW
-# ##################################################################
-
-# create_root_design ""
-
-
