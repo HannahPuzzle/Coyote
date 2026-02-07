@@ -371,8 +371,11 @@ module shell_top (
     `AXI_ASSIGN_S2I(s_axi_main, s_axi_main)    
     AXI4L axi_cnfg ();
     AXI4L axi_ctrl [N_REGIONS] ();
+
+    {% if cnfg.en_avx %}
     AXI4 #(.AXI4_DATA_BITS(AVX_DATA_BITS)) axim_ctrl [N_REGIONS] ();
-    
+    {% endif %}
+
     shell_ctrl_cc inst_shell_ctrl_cc (
         .xclk(xclk),
         .xresetn(xresetn),
@@ -387,8 +390,10 @@ module shell_top (
         
         .axi_main(s_axi_main),
         .axi_cnfg(axi_cnfg),
-        .axi_ctrl(axi_ctrl),
-        .axim_ctrl(axim_ctrl) 
+        {% if cnfg.en_avx %}
+        .axim_ctrl(axim_ctrl),
+        {% endif %}
+        .axi_ctrl(axi_ctrl)
     );
 
 {% if cnfg.fdev == 'u55c' %}
