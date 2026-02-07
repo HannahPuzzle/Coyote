@@ -54,12 +54,12 @@ if {$cfg(build_static) eq 1} {
     # Shell
     add_files "$cfg(static_path)/static_routed_locked_$cfg(fdev).dcp"   
 }
-add_files -fileset [get_filesets constrs_1] "$hw_dir/constraints/$cfg(fdev)/shell/impl"
-add_files -fileset [get_filesets constrs_1] "$hw_dir/constraints/$cfg(fdev)/dynamic/impl"
-
 if {$cfg(fdev) eq "enzian"} {
     add_files -fileset [get_filesets constrs_1] "$hw_dir/ext/eci-transport/xdc/impl"
 }
+add_files -fileset [get_filesets constrs_1] "$hw_dir/constraints/$cfg(fdev)/shell/impl"
+add_files -fileset [get_filesets constrs_1] "$hw_dir/constraints/$cfg(fdev)/dynamic/impl"
+
 
 # Shell
 add_files "$dcp_dir/shell/shell_synthed.dcp"
