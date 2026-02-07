@@ -109,6 +109,7 @@ module static_top (
     // ECI
     wire eci_clk;
     wire eci_reset;
+    wire prgc0_clk;
     logic [2:0] no_awprot;
     logic [2:0] no_arprot;
     assign no_awprot = 3'b0;
@@ -327,6 +328,7 @@ module static_top (
     module_inst inst_module_inst (
         .clk_sys(eci_clk),
         .reset_sys(eci_reset),
+        .clk_prgc0(prgc0_clk),
         .F_CCPIC_CLK_P_LINK1(F_CCPIC_CLK_P_LINK1),
         .F_CCPIC_CLK_N_LINK1(F_CCPIC_CLK_N_LINK1),
         .F_CCPIC_CLK_P_LINK2(F_CCPIC_CLK_P_LINK2),
@@ -454,8 +456,7 @@ module static_top (
         .s_io_axil_rready(axi_io.rready),
         .clk_sys(eci_clk),
         .reset_sys(eci_reset),
-        .prgc0_clk_n(F_PRGC0_CLK_N),
-        .prgc0_clk_p(F_PRGC0_CLK_P),
+        .prgc0(prgc0_clk),
 
         .pclk(pclk),
         .presetn(presetn),

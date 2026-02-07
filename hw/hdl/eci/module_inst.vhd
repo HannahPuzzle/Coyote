@@ -14,6 +14,7 @@ entity module_inst is
 port (
     clk_sys     : out std_logic;
     reset_sys   : out std_logic;
+    clk_prgc0   :out std_logic;
 
     -- 156.25MHz transceiver reference clocks
     F_CCPIC_CLK_P_LINK1 : in std_logic_vector(2 downto 0);
@@ -473,8 +474,8 @@ end record;
 
 signal m0_bscan, s_bscan   : BSCAN_INTERFACE;
 
-signal canCallWhatever0 : std_logic; -- ? (läuft ins Leere)
-signal canCallWhatever1 : std_logic;
+
+signal canCallWhatever1 : std_logic;-- ? (läuft ins Leere)
 
 begin
 
@@ -671,7 +672,7 @@ generic map (
 port map (
     clk_sys                 => clk_system,
     clk_io_out              => clk_io,
-    clk_prgc0_out           => canCallWhatever0, -- ?
+    clk_prgc0_out           => clk_prgc0, -- ?
     clk_prgc1_out           => canCallWhatever1, -- ?
 
     prgc0_clk_p             => F_PRGC0_CLK_P,
