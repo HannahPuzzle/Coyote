@@ -466,7 +466,7 @@ module static_top (
         .dclk(dclk),
         .dresetn(dresetn),
         .sresetn(sresetn),
-        .xclk(sclk),
+        .xclk(xclk),
         .xresetn(xresetn),
         .eos_resetn(eos_resetn)
     );
