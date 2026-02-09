@@ -45,6 +45,7 @@ set log_dir         "$build_dir/logs"
 set bit_dir         "$build_dir/bitstreams"
 
 # DEPRECATED --- ENZIAN
+# !! what's this
 set enzian_dir      "$hw_dir/ext/eci/fpga"
 
 set device_ip_dir   "$ip_dir/dev"
