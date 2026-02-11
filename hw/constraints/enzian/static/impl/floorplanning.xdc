@@ -28,24 +28,24 @@ resize_pblock [get_pblocks pblock_link2_eci_tlk] -add {RAMB36_X10Y102:RAMB36_X11
 set_property SNAPPING_MODE NESTED [get_pblocks pblock_link2_eci_tlk]
 set_property IS_SOFT TRUE [get_pblocks pblock_link2_eci_tlk]
 
-create_pblock pblock_dynamic
-add_cells_to_pblock [get_pblocks pblock_dynamic] [get_cells -quiet [list i_app]]
-resize_pblock [get_pblocks pblock_dynamic] -add {SLICE_X142Y720:SLICE_X168Y839 SLICE_X112Y630:SLICE_X168Y659 SLICE_X155Y600:SLICE_X168Y629}
-resize_pblock [get_pblocks pblock_dynamic] -add {CFGIO_SITE_X0Y2:CFGIO_SITE_X0Y2}
-resize_pblock [get_pblocks pblock_dynamic] -add {DSP48E2_X17Y288:DSP48E2_X18Y335 DSP48E2_X18Y240:DSP48E2_X18Y263 DSP48E2_X14Y252:DSP48E2_X17Y263}
-resize_pblock [get_pblocks pblock_dynamic] -add {GTYE4_CHANNEL_X1Y40:GTYE4_CHANNEL_X1Y43}
-resize_pblock [get_pblocks pblock_dynamic] -add {GTYE4_COMMON_X1Y10:GTYE4_COMMON_X1Y10}
-resize_pblock [get_pblocks pblock_dynamic] -add {ILKNE4_X1Y7:ILKNE4_X1Y7}
-resize_pblock [get_pblocks pblock_dynamic] -add {IOB_X1Y546:IOB_X1Y571}
-resize_pblock [get_pblocks pblock_dynamic] -add {LAGUNA_X22Y480:LAGUNA_X23Y599 LAGUNA_X16Y540:LAGUNA_X21Y599}
-resize_pblock [get_pblocks pblock_dynamic] -add {PCIE40E4_X1Y4:PCIE40E4_X1Y4}
-resize_pblock [get_pblocks pblock_dynamic] -add {RAMB18_X10Y288:RAMB18_X11Y335 RAMB18_X11Y240:RAMB18_X11Y263 RAMB18_X8Y252:RAMB18_X10Y263}
-resize_pblock [get_pblocks pblock_dynamic] -add {RAMB36_X10Y144:RAMB36_X11Y167 RAMB36_X11Y120:RAMB36_X11Y131 RAMB36_X8Y126:RAMB36_X10Y131}
-resize_pblock [get_pblocks pblock_dynamic] -add {SYSMONE4_X0Y2:SYSMONE4_X0Y2}
-resize_pblock [get_pblocks pblock_dynamic] -add {URAM288_X3Y168:URAM288_X3Y175}
-resize_pblock [get_pblocks pblock_dynamic] -add {CLOCKREGION_X0Y14:CLOCKREGION_X5Y14 CLOCKREGION_X0Y11:CLOCKREGION_X4Y13 CLOCKREGION_X0Y10:CLOCKREGION_X3Y10 CLOCKREGION_X0Y9:CLOCKREGION_X5Y9 CLOCKREGION_X0Y6:CLOCKREGION_X4Y8 CLOCKREGION_X0Y0:CLOCKREGION_X5Y5}
-set_property SNAPPING_MODE ON [get_pblocks pblock_dynamic]
-set_property HD.RECONFIGURABLE true [get_cells i_app]
+# create_pblock pblock_dynamic
+# add_cells_to_pblock [get_pblocks pblock_dynamic] [get_cells -quiet [list i_app]]
+# resize_pblock [get_pblocks pblock_dynamic] -add {SLICE_X142Y720:SLICE_X168Y839 SLICE_X112Y630:SLICE_X168Y659 SLICE_X155Y600:SLICE_X168Y629}
+# resize_pblock [get_pblocks pblock_dynamic] -add {CFGIO_SITE_X0Y2:CFGIO_SITE_X0Y2}
+# resize_pblock [get_pblocks pblock_dynamic] -add {DSP48E2_X17Y288:DSP48E2_X18Y335 DSP48E2_X18Y240:DSP48E2_X18Y263 DSP48E2_X14Y252:DSP48E2_X17Y263}
+# resize_pblock [get_pblocks pblock_dynamic] -add {GTYE4_CHANNEL_X1Y40:GTYE4_CHANNEL_X1Y43}
+# resize_pblock [get_pblocks pblock_dynamic] -add {GTYE4_COMMON_X1Y10:GTYE4_COMMON_X1Y10}
+# resize_pblock [get_pblocks pblock_dynamic] -add {ILKNE4_X1Y7:ILKNE4_X1Y7}
+# resize_pblock [get_pblocks pblock_dynamic] -add {IOB_X1Y546:IOB_X1Y571}
+# resize_pblock [get_pblocks pblock_dynamic] -add {LAGUNA_X22Y480:LAGUNA_X23Y599 LAGUNA_X16Y540:LAGUNA_X21Y599}
+# resize_pblock [get_pblocks pblock_dynamic] -add {PCIE40E4_X1Y4:PCIE40E4_X1Y4}
+# resize_pblock [get_pblocks pblock_dynamic] -add {RAMB18_X10Y288:RAMB18_X11Y335 RAMB18_X11Y240:RAMB18_X11Y263 RAMB18_X8Y252:RAMB18_X10Y263}
+# resize_pblock [get_pblocks pblock_dynamic] -add {RAMB36_X10Y144:RAMB36_X11Y167 RAMB36_X11Y120:RAMB36_X11Y131 RAMB36_X8Y126:RAMB36_X10Y131}
+# resize_pblock [get_pblocks pblock_dynamic] -add {SYSMONE4_X0Y2:SYSMONE4_X0Y2}
+# resize_pblock [get_pblocks pblock_dynamic] -add {URAM288_X3Y168:URAM288_X3Y175}
+# resize_pblock [get_pblocks pblock_dynamic] -add {CLOCKREGION_X0Y14:CLOCKREGION_X5Y14 CLOCKREGION_X0Y11:CLOCKREGION_X4Y13 CLOCKREGION_X0Y10:CLOCKREGION_X3Y10 CLOCKREGION_X0Y9:CLOCKREGION_X5Y9 CLOCKREGION_X0Y6:CLOCKREGION_X4Y8 CLOCKREGION_X0Y0:CLOCKREGION_X5Y5}
+# set_property SNAPPING_MODE ON [get_pblocks pblock_dynamic]
+# set_property HD.RECONFIGURABLE true [get_cells i_app]
 
 # set_property HD.PARTPIN_RANGE {SLICE_X112Y360:SLICE_X141Y539 SLICE_X112Y300:SLICE_X156Y359} [get_pins i_app/*]
 # set_property HD.PARTPIN_RANGE {SLICE_X112Y540:SLICE_X118Y599 SLICE_X121Y540:SLICE_X134Y599 SLICE_X137Y540:SLICE_X149Y599 SLICE_X152Y540:SLICE_X156Y599 SLICE_X112Y360:SLICE_X141Y539 SLICE_X112Y300:SLICE_X156Y359} [get_pins i_app/*]
