@@ -579,35 +579,35 @@ module shell_top (
     logic [N_REGIONS-1:0] m_bscan_tms;
     logic [N_REGIONS-1:0] m_bscan_update;
 
-    debug_bridge_dynamic inst_debug_bridge_dynamic (
-        .clk(dclk),
-    {% for i in range(0, cnfg.n_reg) %}
-        .m{{ i }}_bscan_bscanid_en(m_bscan_bscanid_en[{{ i }}]),
-        .m{{ i }}_bscan_capture(m_bscan_capture[{{ i }}]),
-        .m{{ i }}_bscan_drck(m_bscan_drck[{{ i }}]),
-        .m{{ i }}_bscan_reset(m_bscan_reset[{{ i }}]),
-        .m{{ i }}_bscan_runtest(m_bscan_runtest[{{ i }}]),
-        .m{{ i }}_bscan_sel(m_bscan_sel[{{ i }}]),
-        .m{{ i }}_bscan_shift(m_bscan_shift[{{ i }}]),
-        .m{{ i }}_bscan_tck(m_bscan_tck[{{ i }}]),
-        .m{{ i }}_bscan_tdi(m_bscan_tdi[{{ i }}]),
-        .m{{ i }}_bscan_tdo(m_bscan_tdo[{{ i }}]),
-        .m{{ i }}_bscan_tms(m_bscan_tms[{{ i }}]),
-        .m{{ i }}_bscan_update(m_bscan_update[{{ i }}]),
-    {% endfor %}
-        .S_BSCAN_bscanid_en(dyn_bscan_bscanid_en),
-        .S_BSCAN_capture(dyn_bscan_capture),
-        .S_BSCAN_drck(dyn_bscan_drck),
-        .S_BSCAN_reset(dyn_bscan_reset),
-        .S_BSCAN_runtest(dyn_bscan_runtest),
-        .S_BSCAN_sel(dyn_bscan_sel),
-        .S_BSCAN_shift(dyn_bscan_shift),
-        .S_BSCAN_tck(dyn_bscan_tck),
-        .S_BSCAN_tdi(dyn_bscan_tdi),
-        .S_BSCAN_tdo(dyn_bscan_tdo),
-        .S_BSCAN_tms(dyn_bscan_tms),
-        .S_BSCAN_update(dyn_bscan_update)
-    );
+    // debug_bridge_dynamic inst_debug_bridge_dynamic (
+    //     .clk(dclk),
+    // {% for i in range(0, cnfg.n_reg) %}
+    //     .m{{ i }}_bscan_bscanid_en(m_bscan_bscanid_en[{{ i }}]),
+    //     .m{{ i }}_bscan_capture(m_bscan_capture[{{ i }}]),
+    //     .m{{ i }}_bscan_drck(m_bscan_drck[{{ i }}]),
+    //     .m{{ i }}_bscan_reset(m_bscan_reset[{{ i }}]),
+    //     .m{{ i }}_bscan_runtest(m_bscan_runtest[{{ i }}]),
+    //     .m{{ i }}_bscan_sel(m_bscan_sel[{{ i }}]),
+    //     .m{{ i }}_bscan_shift(m_bscan_shift[{{ i }}]),
+    //     .m{{ i }}_bscan_tck(m_bscan_tck[{{ i }}]),
+    //     .m{{ i }}_bscan_tdi(m_bscan_tdi[{{ i }}]),
+    //     .m{{ i }}_bscan_tdo(m_bscan_tdo[{{ i }}]),
+    //     .m{{ i }}_bscan_tms(m_bscan_tms[{{ i }}]),
+    //     .m{{ i }}_bscan_update(m_bscan_update[{{ i }}]),
+    // {% endfor %}
+    //     .S_BSCAN_bscanid_en(dyn_bscan_bscanid_en),
+    //     .S_BSCAN_capture(dyn_bscan_capture),
+    //     .S_BSCAN_drck(dyn_bscan_drck),
+    //     .S_BSCAN_reset(dyn_bscan_reset),
+    //     .S_BSCAN_runtest(dyn_bscan_runtest),
+    //     .S_BSCAN_sel(dyn_bscan_sel),
+    //     .S_BSCAN_shift(dyn_bscan_shift),
+    //     .S_BSCAN_tck(dyn_bscan_tck),
+    //     .S_BSCAN_tdi(dyn_bscan_tdi),
+    //     .S_BSCAN_tdo(dyn_bscan_tdo),
+    //     .S_BSCAN_tms(dyn_bscan_tms),
+    //     .S_BSCAN_update(dyn_bscan_update)
+    // );
 
         
     // ================-----------------------------------------------------------------
