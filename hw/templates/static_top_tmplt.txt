@@ -619,6 +619,8 @@ module static_top (
         .RDWRB(1'b0) // 1-bit input: Read/Write Select input
     );
 {% endif %}
+
+{% if cnfg.fdev != 'enzian' %}
     // ================-----------------------------------------------------------------
     // DEBUG HUB
     // ================-----------------------------------------------------------------
@@ -664,6 +666,7 @@ module static_top (
         .m1_bscan_tms(stat_bscan_tms),
         .m1_bscan_update(stat_bscan_update)
     );
+    {% endif %}
 
     pr_stats inst_xch_stat (
         .aclk(xclk),
