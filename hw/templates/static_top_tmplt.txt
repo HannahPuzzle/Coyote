@@ -492,6 +492,10 @@ module static_top (
     // ================-----------------------------------------------------------------
     // DECOUPLING AND SLICING 
     // ================-----------------------------------------------------------------   
+{% if cnfg.fdev == 'enzian'%}
+    always_comb m_axi_main.tie_off_m();
+    always_comb m_axis_dyn_out.tie_off_m();
+{% else %}
     dcpl_select_static (
         .aclk(xclk),
         .aresetn(sresetn),
@@ -535,7 +539,7 @@ module static_top (
         .m_dma_wb_req(dma_wr_req_int[N_SCHAN])
     );
 
-{% if cnfg.fdev != 'enzian' %}
+
     // ================-----------------------------------------------------------------
     // PR 
     // ================-----------------------------------------------------------------   
@@ -666,7 +670,7 @@ module static_top (
         .m1_bscan_tms(stat_bscan_tms),
         .m1_bscan_update(stat_bscan_update)
     );
-    {% endif %}
+    
 
     pr_stats inst_xch_stat (
         .aclk(xclk),
@@ -698,5 +702,6 @@ module static_top (
         .probe_in4(xdma_stats_stat.bpss_h2c_axis_counter),
         .probe_in5(xdma_stats_stat.bpss_c2h_axis_counter)
     );
+{% endif %}
 
 endmodule
