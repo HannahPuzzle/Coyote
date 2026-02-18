@@ -14,7 +14,7 @@ entity module_inst is
 port (
     clk_sys     : out std_logic;
     reset_sys   : out std_logic;
-    clk_prgc0   : out std_logic;
+    clk_prgc0   :out std_logic;
 
     -- 156.25MHz transceiver reference clocks
     F_CCPIC_CLK_P_LINK1 : in std_logic_vector(2 downto 0);
