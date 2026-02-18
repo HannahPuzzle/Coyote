@@ -492,7 +492,10 @@ module static_top (
     // ================-----------------------------------------------------------------
     // DECOUPLING AND SLICING 
     // ================-----------------------------------------------------------------   
-{% if cnfg.fdev != 'enzian'%}
+{% if cnfg.fdev == 'enzian'%}
+    always_comb m_axi_main.tie_off_m();
+    always_comb m_axis_dyn_out.tie_off_m();
+{% else %}
     dcpl_select_static (
         .aclk(xclk),
         .aresetn(sresetn),

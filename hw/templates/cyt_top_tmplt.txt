@@ -305,15 +305,6 @@ module cyt_top (
     dmaIntf dma_rd_req_sh2st [N_SCHAN] ();
     dmaIntf dma_wr_req_sh2st [N_SCHAN] ();
 
-    {% if cnfg.fdev == 'enzian'%}
-        always_comb axi_main_st2sh.tie_off_m();
-        // always_comb axi_main_st2sh.tie_off_s();
-        for(genvar i = 0; i < N_SCHAN; i++) begin
-            always_comb axis_dyn_st2sh[i].tie_off_m();
-            always_comb axis_dyn_sh2st[i].tie_off_s();
-         end
-    {% endif %}
-
     metaIntf #(.STYPE(wback_t)) wback_sh2st ();
 
     // Debug
