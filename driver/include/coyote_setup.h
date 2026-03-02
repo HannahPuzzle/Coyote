@@ -51,7 +51,7 @@ void init_spin_locks(struct bus_driver_data *data);
 /// Initialize sysfs entry for Coyote; for more details see coyote_sysfs.h
 int create_sysfs_entry(struct bus_driver_data *data);
 
-/// Removes sysfs entry for Coyote; used oly when the driver is unloaded
+/// Removes sysfs entry for Coyote; used only when the driver is unloaded
 void remove_sysfs_entry(struct bus_driver_data *data);
 
 /// Allocates and registers all the char vFPGA devices (one for every region)
