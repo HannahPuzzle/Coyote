@@ -96,7 +96,6 @@ if {$cfg(fdev) eq "enzian"} {
 set_property "top" "cyt_top" [current_fileset]
 
 # Constraints
-# ! add old enzian ones?
 add_files -norecurse -fileset [get_filesets constrs_1] "$hw_dir/constraints/$cfg(fdev)/static/synth"
 set_property used_in_implementation false [get_files -of_objects [get_filesets constrs_1]]
 

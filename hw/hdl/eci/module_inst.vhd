@@ -319,6 +319,7 @@ port (
 );
 end component;
 
+-- GSYNC handler
 component loopback_vc_resp_nodata is
 generic (
     WORD_WIDTH      : integer;

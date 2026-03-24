@@ -88,12 +88,14 @@ module design_user_logic_c{{ c_cnfg }}_{{ c_reg }} (
 );
 
 /* -- Tie-off unused interfaces and signals ----------------------------- */
+{% if cnfg.fdev == 'enzian' %}
 always_comb axi_ctrl.tie_off_s();
 always_comb notify.tie_off_m();
 always_comb sq_rd.tie_off_m();
 always_comb sq_wr.tie_off_m();
 always_comb cq_rd.tie_off_s();
 always_comb cq_wr.tie_off_s();
+{% endif %}
 {% if cnfg.en_rdma %}
 //always_comb rq_rd.tie_off_s();
 {% endif %}

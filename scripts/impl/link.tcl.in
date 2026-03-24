@@ -49,7 +49,9 @@ if {$cfg(build_static) eq 1} {
     # Static
     add_files "$dcp_dir/static/static_synthed.dcp"
     add_files -fileset [get_filesets constrs_1] "$hw_dir/constraints/$cfg(fdev)/static/impl"
-    # add_files -fileset [get_filesets constrs_1] "$hw_dir/constraints/$cfg(fdev)/fplan"
+    if {$cfg(fdev) ne "enzian"} {
+        add_files -fileset [get_filesets constrs_1] "$hw_dir/constraints/$cfg(fdev)/fplan"
+    }
 } else {
     # Shell
     add_files "$cfg(static_path)/static_routed_locked_$cfg(fdev).dcp"   

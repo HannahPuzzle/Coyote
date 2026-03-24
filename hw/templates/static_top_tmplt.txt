@@ -30,7 +30,6 @@ import lynxTypes::*;
 
 `include "axi_macros.svh"
 `include "lynx_macros.svh"
-//`include "module_inst.vhd" // might need to use `uselib or similar?
 
 module static_top (
     // Clocks
@@ -126,10 +125,12 @@ module static_top (
     logic [AXI_ADDR_BITS-1:0] lsb_araddr;
     logic [AXI_ADDR_BITS-1:0] lsb_awaddr;
 
+    {% if cnfg.fdev == 'enzian' %}
     // AXI IO
     AXI4L #(.AXI4L_DATA_BITS(64), .AXI4L_ADDR_BITS(44)) axi_io ();
-    AXI4L #(.AXI4L_DATA_BITS(64), .AXI4L_ADDR_BITS(44)) axi_intm (); // !
+    AXI4L #(.AXI4L_DATA_BITS(64), .AXI4L_ADDR_BITS(44)) axi_intm ();
     always_comb axi_intm.tie_off_s();
+    {% endif %}
 
     // AXI streams
     AXI4S axis_dyn_out_int [N_XCHAN] ();
@@ -137,6 +138,8 @@ module static_top (
     dmaIntf dma_rd_req_int [N_XCHAN] ();
     dmaIntf dma_wr_req_int [N_XCHAN] ();
     xdmaIntf xdma_req_int [N_XCHAN] ();
+
+    {% if cnfg.fdev == 'enzian' %}
    for(genvar i = 0; i < N_XCHAN; i++) begin
     always_comb axis_dyn_out_int[i].tie_off_s();
     always_comb axis_dyn_in_int[i].tie_off_m();
@@ -148,6 +151,7 @@ module static_top (
     always_comb dma_rd_req_int[i].tie_off_m();
     always_comb dma_wr_req_int[i].tie_off_m();
    end
+    {% endif %}
 
     // Decoupling 
     logic pr_slct;
@@ -162,6 +166,8 @@ module static_top (
     // PR streams
     AXI4S axis_pr();
     AXI4S #(.AXI4S_DATA_BITS(32)) axis_icap [N_REG_PR+1] ();
+
+ {% if cnfg.fdev == 'enzian' %}
     always_comb axis_pr.tie_off_m();
     always_comb axis_pr.tie_off_s();
     always_comb axis_icap[0].tie_off_m();
@@ -169,7 +175,8 @@ module static_top (
             always_comb axis_icap[i].tie_off_s();
             always_comb axis_icap[i+1].tie_off_m();
     end
-    
+{% endif %}
+
     // PR ICAP
     logic pclk;
     logic presetn;
@@ -185,7 +192,7 @@ module static_top (
     {% endif %}
     
     // Stats
-    xdma_stat_t xdma_stats_stat; // just "logic"
+    xdma_stat_t xdma_stats_stat;
 
     // Debug
     logic stat_bscan_bscanid_en;
